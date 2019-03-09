@@ -37,7 +37,7 @@ current_purchase = {"WIs" : 0,
 def space():
   print(" - "*15)
 
-def help(): # runs when called at certian parts of the program
+def help(): # displays all the items with their codes
   help_sys = input("Would you like to see the existing items with their codes in the system")
   if help_sys == "y":
     space()
@@ -50,12 +50,12 @@ def key_exists(key):
     else:
         return 0
 
-def status_message(msg):
+def status_message(msg): #displays messages
     print("")
     print("===> " + msg)
     print("")
     
-def generate_rev_names():
+def generate_rev_names(): #creates new dictionary where the name can be used to access the keyvalue of the item
   for keyval in names:
     val = names[keyval]
     rev_names[val] = keyval
@@ -79,7 +79,6 @@ def list_information():
     space()  
     
 def remove_item():
-
     id_item = input("Enter the ID value for the item you want to remove: ")
     
     if (key_exists(id_item) == 0):
@@ -173,8 +172,8 @@ def purchase():
         price += prices[id_bought_item] * selling #multiplies the amount of items you are buying by the given price
         current_purchase[id_bought_item] += selling #adds the amount of units being sold to the dictionary
         existing = names[id_bought_item]
-        if existing in items_cart:#checks the cart if the item they entered was the same as before 
-          del items_cart[existing]# and deletes it to be redefind after
+        if existing in items_cart: #checks the cart to see if they reentered an item
+          del items_cart[existing] #deletes the item to be readded
         items_cart[names[id_bought_item]] = current_purchase[id_bought_item]
         print(items_cart)
         run = input("would you like to add another item to your shopping cart")
@@ -187,7 +186,7 @@ def purchase():
         
 def increase_stock_of_item():
   x = 0
-  while x == 0:#used to create the while loop
+  while x == 0: #used to create the while loop
     id_item = input("What is the item code of the item")
     if key_exists(id_item) == 1:
       add = int(input("How many of that item are you adding (negative number for removing items)"))
@@ -206,7 +205,7 @@ def increase_stock_of_item():
       help()
 
 def edit_item():
-  edit = input("Enter the item code. Enter h for help")#asks for the item code for the item you wish edit
+  edit = input("Enter the item code. Enter h for help") #asks for the item code for the item you wish edit
   if key_exists(edit) == 1:
     start = input("What are you editing? An items price, discription, item code, or name(P,D,I,N)")
     start = start.upper()
